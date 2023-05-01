@@ -3,6 +3,7 @@ package Calculadora;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.Stack;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -62,9 +63,10 @@ public class Interface extends JFrame{
     private JPanel pnlVisor;
     private JPanel pnlCentral;
     private boolean cientifica = false;
+    private boolean limpa1 = false;
+    private boolean limpa2 = false;
 
     public Interface(){
-
         this.initComponents();
     }
     
@@ -147,7 +149,7 @@ public class Interface extends JFrame{
         this.btnMC = new JButton("MC");
         this.btnMC.setFont(new java.awt.Font("Tahoma", 0, 24));
 
-        Icon expandir = new ImageIcon("src\\aula13\\expandir.png");
+        Icon expandir = new ImageIcon("src\\Calculadora\\expandir.png");
         this.btnExpandir = new JButton(expandir);
         this.btnExpandir.setFont(new java.awt.Font("Tahoma", 0, 24));
 
@@ -163,10 +165,12 @@ public class Interface extends JFrame{
         this.btnModulo = new JButton("|x|");
         this.btnModulo.setFont(new java.awt.Font("Tahoma", 0, 24));
 
-        this.btnTeto = new JButton("⌈x⌉");
+        Icon teto = new ImageIcon("src\\Calculadora\\teto.png");
+        this.btnTeto = new JButton(teto);
         this.btnTeto.setFont(new java.awt.Font("Tahoma", 0, 24));
 
-        this.btnPiso = new JButton("⌊x⌋");
+        Icon piso = new ImageIcon("src\\Calculadora\\piso.png");
+        this.btnPiso = new JButton(piso);
         this.btnPiso.setFont(new java.awt.Font("Tahoma", 0, 24));
 
         this.btnLog = new JButton("Log");
@@ -176,15 +180,15 @@ public class Interface extends JFrame{
         this.btnLn.setFont(new java.awt.Font("Tahoma", 0, 24));
 
         this.btnPi = new JButton("π");
-        this.btnPi.setFont(new java.awt.Font("Tahoma", 0, 24));
+        this.btnPi.setFont(new java.awt.Font("Tahoma", 0, 24)); 
 
         this.btnE = new JButton("e");
         this.btnE.setFont(new java.awt.Font("Tahoma", 0, 24));
 
-        this.btnFatorial = new JButton("n!");
+        this.btnFatorial = new JButton("x!");
         this.btnFatorial.setFont(new java.awt.Font("Tahoma", 0, 24));
 
-        this.btnSomatorial = new JButton("n?");
+        this.btnSomatorial = new JButton("x?");
         this.btnSomatorial.setFont(new java.awt.Font("Tahoma", 0, 24));
 
         this.btnBS = new JButton("←");
@@ -226,93 +230,258 @@ public class Interface extends JFrame{
             	limpaVisores();
             }
         });
+
         this.btn1.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("1");
 			}
         });
         
         this.btn2.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("2");
 			}
         });
+
         this.btn3.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("3");
 			}
         });
+
         this.btn4.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("4");
 			}
         });
+
         this.btn5.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("5");
 			}
         });
+
         this.btn6.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("6");
 			}
         });
+
         this.btn7.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("7");
 			}
         });
+
         this.btn8.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("8");
 			}
         });
+
         this.btn9.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("9");
 			}
         });
+
         this.btn0.addActionListener(new java.awt.event.ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+                verificaErro();
 				btnNumeroActionPerformed("0");
 			}
         });
+
         this.btnSoma.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
                 btnOperador('+');
             }
         });
+
         this.btnSubtracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
             	btnOperador('-');
             	
             }
         });
+
         this.btnMultiplicacao.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
             	btnOperador('*');
             }
         });
+
         this.btnDivisao.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
             	btnOperador('/');
             }
         });
+
         this.btnExpandir.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
             	btnExpandirActionPerformed();
             }
         });
+
         this.btnIgual.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
+                verificaErro();
             	btnIgualActionPerformed();
             }
         });
+
         this.btnLog.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent evt){
-            	btnLogActionPerformed();
+                verificaErro();
+            	calcCien("log");
             }
         });
+
+        this.btnLn.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("ln");
+            }
+        });
+
+        this.btnRaiz.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("raiz");
+            }
+        });
+        
+        this.btnPotencia.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("potencia");
+            }
+        });
+
+        this.btnInverterSinal.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("inverterSinal");
+            }
+        });
+        
+        this.btnPorcentagem.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("porcentagem");
+            }
+        });
+
+        this.btnFatorial.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("fatorial");
+            }
+        });
+
+        this.btnSomatorial.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("somatorial");
+            }
+        });
+
+        this.btnPi.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("pi");
+            }
+        });
+
+        this.btnE.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("euler");
+            }
+        });
+
+        this.btnP10.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("10potencia");
+            } 
+        });
+
+        this.btnInverte.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("inverte");
+            }
+        });
+
+        this.btnModulo.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("modulo");
+            }
+        });
+
+        this.btnTeto.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("teto");
+            }
+        });
+
+        this.btnPiso.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("piso");
+            }
+        });
+
+        this.btnModulo.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	calcCien("modulo");
+            }
+        });
+
+        this.btnPonto.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	btnPontoActionPerformed();
+            }
+        });
+
+        this.btnParentesesAbre.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	btnParentesesActionPerformed("(");
+            }
+        });
+
+        this.btnParentesesFecha.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                verificaErro();
+            	btnParentesesActionPerformed(")");
+            }
+        }); 
+
+
+
+ 
+
+
         
         this.pnlCentral.add(btnLimpar);
         this.pnlCentral.add(btnSoma);
@@ -347,17 +516,33 @@ public class Interface extends JFrame{
     }
     
     private void btnNumeroActionPerformed(String numero) {
-        if(!txtVisor.getText().equals("")){  
-            char ultimoCaracter = txtVisor.getText().charAt(txtVisor.getText().length()-1);    
-            if(String.valueOf(ultimoCaracter).matches("[+\\-*/]")){
-                txtNumero.setText("");
-            } 
+        if(limpa1) { 
+        	limpa1 =false;
+        	txtNumero.setText("");
+        	txtVisor.setText(""); 
+        }
+        if(limpa2) {
+        	limpa2 =false; 
+        	txtNumero.setText("");
+
         }
         	txtNumero.setText(txtNumero.getText() + numero);
-    }
+    } 
+ 
+    private void btnPontoActionPerformed() {
+        if(!txtNumero.getText().contains(".")){
+            if(txtNumero.getText().equals("")){
+                txtNumero.setText("0");
+            }
+            txtNumero.setText(txtNumero.getText() + ".");
+        }
+    } 
 
     private void btnOperador(char operador) {
         if(!txtNumero.getText().equals("")){
+            if(txtNumero.getText().charAt(txtNumero.getText().length()-1)=='.'){
+                txtNumero.setText(txtNumero.getText()+"0");
+            }
             txtVisor.setText(txtVisor.getText() + txtNumero.getText() + operador);
             txtNumero.setText("");
         }else{
@@ -376,22 +561,151 @@ public class Interface extends JFrame{
         txtNumero.setText("");
     }
 
-    private void btnIgualActionPerformed() throws ArithmeticException{
-        
-            if(!txtNumero.getText().equals("")){
-                txtVisor.setText(txtVisor.getText() + txtNumero.getText());
-                txtNumero.setText(Logica.calcularConta(txtVisor.getText()));
-                txtVisor.setText(""); 
+    private void btnParentesesActionPerformed(String AF) {
+        int contAbre = 0;
+        int contFecha = 0;
+        for(int i = 0; i < txtVisor.getText().length(); i++){
+            if(txtVisor.getText().charAt(i) == '('){
+                contAbre++;
             }
-  
-    }  
+            if(txtVisor.getText().charAt(i) == ')'){
+                contFecha++;
+            }
+        }
+        if(AF.equals("(")){
+        	if(!txtNumero.getText().equals("")) {
+        		txtVisor.setText(txtVisor.getText() + txtNumero.getText() + "(");
+                txtNumero.setText("");
+        	}else {
+            	txtVisor.setText(txtVisor.getText() + "(");
+            }
+            
+        }else{
+            if(!txtNumero.getText().equals("")){
+                if(contAbre > contFecha){
+                    txtVisor.setText(txtVisor.getText() + txtNumero.getText() + ")");
+                    txtNumero.setText("");
+	            }else{
+	                if(!txtVisor.getText().equals("")){
+	                    char ultimoCaracter = txtVisor.getText().charAt(txtVisor.getText().length()-1);    
+	                    if(String.valueOf(ultimoCaracter).matches("[+\\-*/]")){
+	                        txtVisor.setText(txtVisor.getText().substring(0, txtVisor.getText().length()-1) + ")");
+	                    } 
+	                }else{
+	                    txtVisor.setText("0" + ")");
+	                }
+	            }
+            }
+        }
+    } 
 
-    private void btnLogActionPerformed(){
+    private void btnIgualActionPerformed() {
+    	limpa1=true;
+        int contAbre = 0;
+        int contFecha = 0;
+        for(int i = 0; i < txtVisor.getText().length(); i++){
+            if(txtVisor.getText().charAt(i) == '('){
+                contAbre++;
+            }
+            if(txtVisor.getText().charAt(i) == ')'){
+                contFecha++;
+            }
+        }
         if(!txtNumero.getText().equals("")){
-            txtNumero.setText(Logica.calcularLog(txtNumero.getText()));
+            txtVisor.setText(txtVisor.getText() + txtNumero.getText());
+            txtNumero.setText("");
+            if(contAbre > contFecha){
+                for(int i = 0; i < contAbre - contFecha; i++){
+                    txtVisor.setText(txtVisor.getText() + ")");
+                }
+            }
+        txtNumero.setText(calcularConta(txtVisor.getText()));
+        }
+    }
+ 
+    private void calcCien(String op){
+        if(!txtNumero.getText().equals("") || op.equals("pi") || op.equals("euler")){
+            switch (op){
+                case "log":
+                    txtNumero.setText(String.valueOf(Math.log10(Double.parseDouble(txtNumero.getText()))));
+                    break;
+                case "ln":
+                    txtNumero.setText(String.valueOf(Math.log(Double.parseDouble(txtNumero.getText()))));
+                    break;
+                case "raiz":
+                    txtNumero.setText(String.valueOf(Math.sqrt(Double.parseDouble(txtNumero.getText()))));
+                    break;
+                case "potencia":
+                    txtNumero.setText(String.valueOf(Math.pow(Double.parseDouble(txtNumero.getText()), 2)));
+                    break; 
+                case "inverterSinal":
+                    txtNumero.setText(String.valueOf(Double.parseDouble(txtNumero.getText())*(-1)));
+                    break;
+                case "porcentagem":
+                    txtNumero.setText(String.valueOf(Double.parseDouble(txtNumero.getText())/100));
+                    break;
+                case "fatorial":
+                    float num1 = Float.parseFloat(txtNumero.getText());
+                    int fatorial = (int) num1;                
+                    int resultado = 1;
+                    for(int i = 1; i <= fatorial; i++){ 
+                        resultado *= i;
+                    }
+                    txtNumero.setText(String.valueOf(resultado));
+                    break;
+                case "somatorial":
+                    float num2 = Float.parseFloat(txtNumero.getText());
+                    int somatorial = (int) num2; 
+                    int resultado2 = 0;
+                    for(int i = 1; i <= somatorial; i++){
+                        resultado2 += i;
+                    }
+                    txtNumero.setText(String.valueOf(resultado2));
+                    break;
+                case "pi":
+                    txtNumero.setText(String.valueOf(Math.PI)); 
+                    break;
+                case "euler":
+                	txtNumero.setText("");
+                    txtNumero.setText(String.valueOf(Math.E));
+                    break; 
+                case "10potencia":
+                    float num3 = Float.parseFloat(txtNumero.getText());
+                    int p10 = (int) num3,valor =1;
+                    for(int i = 1; i <= p10; i++){
+                        valor*=10;
+                    }
+                    txtNumero.setText(String.valueOf(valor));
+                    break;
+                case "inverte":
+                    txtNumero.setText(String.valueOf(1/Double.parseDouble(txtNumero.getText())));
+                    break;
+                case "modulo":
+                    txtNumero.setText(String.valueOf(Math.abs(Double.parseDouble(txtNumero.getText()))));
+                    break;
+                case "teto":
+                String teto =String.valueOf(Math.ceil(Double.parseDouble(txtNumero.getText())));
+                teto = teto.substring(0, teto.length()-2);
+                    txtNumero.setText(teto);
+                    break;
+                case "piso":
+                String piso =String.valueOf(Math.floor(Double.parseDouble(txtNumero.getText())));
+                piso = piso.substring(0, piso.length()-2);
+                    txtNumero.setText(piso);
+                    break;
+                
+            }
+            limpa2 = true;
+
         }
     }
 
+    private void verificaErro() {
+        String str = txtNumero.getText();
+        if(str.matches(".*[a-zA-Z].*")){
+            txtNumero.setText("");
+        }
+    }
 
 
     private void btnExpandirActionPerformed() {
@@ -509,14 +823,14 @@ public class Interface extends JFrame{
             this.pnlCentral.add(btnInverte);
 
             this.pnlCentral.add(btn4);
-            this.pnlCentral.add(btn5);
+            this.pnlCentral.add(btn5); 
             this.pnlCentral.add(btn6);
             this.pnlCentral.add(btnPiso);
             this.pnlCentral.add(btnTeto);
             this.pnlCentral.add(btnModulo);
             this.pnlCentral.add(btnPi);
              
-            this.pnlCentral.add(btn1);
+            this.pnlCentral.add(btn1); 
             this.pnlCentral.add(btn2);
             this.pnlCentral.add(btn3);
             this.pnlCentral.add(btnFatorial);
@@ -534,6 +848,105 @@ public class Interface extends JFrame{
 
     	}
     }
+    
+    public static String calcularConta(String conta)   {
+    	
+    	if (conta.charAt(0) == '-') {
+    		conta="0" + conta;
+        }
+    	
+    	conta=conta.replaceAll("/-(\\d+\\.?\\d*)", "/(0-$1)");
+    	
+    	conta=conta.replaceAll("(\\d+\\.?\\d*|\\.\\d+)(\\()", "$1*$2");
+    	
+    	conta=conta.replaceAll("(\\))(\\d+\\.?\\d*|\\.\\d+)", "$1*$2");
+    	
+        Stack<Float> valores = new Stack<>();
+        Stack<Character> operadores = new Stack<>();
+
+        for (int i = 0; i < conta.length(); i++) {
+            char c = conta.charAt(i);
+            if (Character.isDigit(c) || c == '.') {
+                StringBuilder sb = new StringBuilder();
+                sb.append(c);
+                while (i + 1 < conta.length() && (Character.isDigit(conta.charAt(i + 1)) || conta.charAt(i + 1) == '.')) {
+                    sb.append(conta.charAt(i + 1));
+                    i++;
+                }
+                float valor = Float.parseFloat(sb.toString());
+                valores.push(valor);
+            } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+                while (!operadores.isEmpty() && prioridade(operadores.peek()) >= prioridade(c)) {
+                    float b = valores.pop();
+                    float a = valores.pop();
+                    char op = operadores.pop();
+                    if (op == '/' && b == 0) {
+                    	return"erro";
+                    }
+                    float resultado = executarOperacao(a, b, op);
+                    valores.push(resultado);
+                }
+                operadores.push(c); 
+            } else if (c == '(') {
+                operadores.push(c);
+            } else if (c == ')') {
+                while (operadores.peek() != '(') {
+                    float b = valores.pop();
+                    float a = valores.pop();
+                    char op = operadores.pop(); 
+                    if (op == '/' && b == 0) {
+                        return "erro";
+                    }
+                    float resultado = executarOperacao(a, b, op);
+                    valores.push(resultado);
+                }
+                operadores.pop();
+            }
+        }
+
+        while (!operadores.isEmpty()) {
+            float b = valores.pop();
+            float a = valores.pop();
+            char op = operadores.pop();
+            if (op == '/' && b == 0) {
+            	return"erro";
+            }
+            float resultado = executarOperacao(a, b, op);
+            valores.push(resultado);
+        }
+
+        return String.valueOf(valores.pop());
+	}
+	
+
+
+	private static int prioridade(char operador) {
+	    switch (operador) {
+	        case '+':
+	        case '-': 
+	            return 1;
+	        case '*': 
+	        case '/':
+	            return 2;
+	        default: 
+	            return 0;
+	    }
+	}
+
+	private static float executarOperacao(float a, float b, char operador) {
+	    switch (operador) {
+	        case '+':
+	            return a + b;
+	        case '-':
+	            return a - b;
+	        case '*':
+	            return a * b;
+	        case '/': 
+	            return a / b;
+	        default:
+	            return 0;   
+	    } 
+	} 
     
     public static void main(String[] args) {
     	new Interface().setVisible(true);
